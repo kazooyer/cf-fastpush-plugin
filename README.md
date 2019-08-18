@@ -75,7 +75,7 @@ $ go build -gcflags="-trimpath=${HOME}"
 * install
 
 ```bash
-$ cf install-plugin ./cf-fastpush
+$ ./scripts/install.sh
 ```
 
 * unintall
