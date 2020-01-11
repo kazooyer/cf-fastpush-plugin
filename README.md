@@ -7,6 +7,7 @@ CloudFoundry Fast Push Plugin
   - .cfignore のパースおよび有効化処理を実装(カレントディレクトリの.cfigonoreを読み込む）
   - -d --dry オプションで実行時、ファイルのアップロードを実行しないで差分だけを表示する
   - 複数引数のアプリ名に対応
+  - 対象アプリのインスタンス数が 1 ではない場合、エラーリターン
   - cf fp/fps の引数なしで実行した場合にCurrent dirのmanifest.ymlを読み込み、 `command:` に `./fp` が含まれるappを自動検出する
   - cf uninstall-plugin 処理のバグを修正（ログイン状態ではない場合にcf uninstall-plugin できないエラーを解消）
   - アプリ内環境変数に「FP_PROTOCOL」を設定することで「http」か「https」かを選択可能(指定しない場合はhttpsになります）
@@ -32,6 +33,9 @@ manifest.yml Sample
 
 ```YAML
 applications
+- name: app-fp
+  instance: 1
+  memory: 128M
   command: wget -q -O ./fp https://github.com/xiwenc/cf-fastpush-controller/releases/download/v1.1.0/cf-fastpush-controller_linux_amd64 && chmod +x ./fp && ./fp
   routes:
   - route app-space-org.cfapps.io
